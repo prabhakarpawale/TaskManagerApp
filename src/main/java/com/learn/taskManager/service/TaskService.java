@@ -60,5 +60,15 @@ public class TaskService {
         return task;
     }
 
+    public String deleteById(int id){
+        TaskEntity task = getTaskById(id);
+        if(task==null){
+            return "Task does not Exist";
+        }
+        tasks.remove(task);
+        task=null;
+        return "Task Deleted Successfully";
+    }
+
 
 }

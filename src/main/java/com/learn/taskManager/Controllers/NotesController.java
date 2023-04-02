@@ -3,6 +3,7 @@ package com.learn.taskManager.Controllers;
 import com.learn.taskManager.Entities.NoteEntity;
 import com.learn.taskManager.dtos.CreateNoteDto;
 import com.learn.taskManager.dtos.CreateNoteResponseDto;
+import com.learn.taskManager.dtos.DeleteResponseDto;
 import com.learn.taskManager.service.NoteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +29,12 @@ public class NotesController {
     public ResponseEntity<CreateNoteResponseDto> addNote(@PathVariable("taskId") Integer taskId , @RequestBody CreateNoteDto body){
         var note = noteService.addNoteForTask(taskId ,body.getTitle(),body.getBody());
         return ResponseEntity.ok(new CreateNoteResponseDto(taskId , note));
+    }
+
+    @DeleteMapping("/{noteId}")
+    public ResponseEntity<DeleteResponseDto> deleteNoteById(@PathVariable("taskId") Integer taskId , @PathVariable("noteId") Integer noteId){
+        String response =noteService.deleteNoteForTask(taskId,noteId);
+        return ResponseEntity.ok(new DeleteResponseDto(response));
+
     }
 }

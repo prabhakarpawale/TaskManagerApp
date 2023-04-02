@@ -1,10 +1,7 @@
 package com.learn.taskManager.Controllers;
 
 import com.learn.taskManager.Entities.TaskEntity;
-import com.learn.taskManager.dtos.CreateTaskDto;
-import com.learn.taskManager.dtos.ErrorResponseDto;
-import com.learn.taskManager.dtos.TaskResponseDto;
-import com.learn.taskManager.dtos.UpdateTaskDto;
+import com.learn.taskManager.dtos.*;
 import com.learn.taskManager.service.NoteService;
 import com.learn.taskManager.service.TaskService;
 import org.modelmapper.ModelMapper;
@@ -69,5 +66,12 @@ public class TaskController {
         return ResponseEntity.internalServerError().body(new ErrorResponseDto("Internal Server Error"));
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteResponseDto> deleteById(@PathVariable("id") Integer id){
+        String reponse =taskService.deleteById(id);
+        return ResponseEntity.ok(new DeleteResponseDto(reponse));
+    }
+
 
 }

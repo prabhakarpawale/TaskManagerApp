@@ -52,5 +52,19 @@ public class NoteService {
         return note;
     }
 
+    public String deleteNoteForTask(int taskId , int noteid){
+        TaskEntity task = taskService.getTaskById(taskId);
+        if(taskNotesHolder.get(taskId)==null){
+            return "Note does not exists";
+        }
+        TaskNotesHolder taskNotesHolder1 = taskNotesHolder.get(taskId);
+        for(NoteEntity note: taskNotesHolder1.notes){
+            if(note.getId()==noteid){
+                taskNotesHolder1.notes.remove(note);
+                return "Note deleted successfully";
+            }
+        }
+        return "Invalid Note Id";
+    }
 
 }
